@@ -60,7 +60,7 @@ void kernel_Main(){
 
 
      //update_cursor(2,2);
-     write_String("kernel in c has started :)");
+     write_String("kernel in c has started :)))");
 	
 	while(1){
 

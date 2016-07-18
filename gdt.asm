@@ -1,16 +1,5 @@
 gdt:
 
-    mov bp,0xffff
-    mov sp,bp
-    mov AH, 0x02
-    mov AL, 0x09
-    mov DL, 0x00
-    mov CH, 0x00
-    mov DH, 0x00
-    mov CL, 0x02
-    mov BX, kernel_entry
-    int 0x13
-
     cli                    ;disable interupt to enter in protected mode
     lgdt[gdt_descriptor]   ;load the global descriptor table
     mov eax, cr0
@@ -48,3 +37,4 @@ gdt_descriptor:
 
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
+
