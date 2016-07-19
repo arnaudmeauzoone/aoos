@@ -1,10 +1,15 @@
 gdt:
+ 
+    push bp
+    mov  bp, sp
 
     cli                    ;disable interupt to enter in protected mode
     lgdt[gdt_descriptor]   ;load the global descriptor table
     mov eax, cr0
     or eax, 0x1
     mov cr0, eax
+
+    leave
     ret
 
 gdt_start:
