@@ -21,6 +21,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "keyboard.h"
+#include "timer.h"
 
 
 void kernel_Main();
@@ -81,13 +82,6 @@ void write_Integer(uint8_t* num){
 	  }											//
 }
 
-static inline uint64_t rdtsc()
-	{
-    uint64_t ret;
-    asm volatile ( "rdtsc" : "=A"(ret) );
-    return ret;
-	}
-
 
 
 void kernel_Main(){
@@ -96,21 +90,11 @@ void kernel_Main(){
      //update_cursor(2,2);
      write_String("kernel in c has started :)))");
 
-    uint64_t time_begin =rdtsc();
-    uint64_t time_current =rdtsc();
-    uint8_t i=0;
-	
-	while(1){
+    while(1){
 
-		//getScancode();
-		time_current = rdtsc();
-		if(time_current - time_begin > 2564000000){
-			write_Integer(i);
-			i++;
-			time_begin = time_current;
-			// 1 nanosecond = 2564 ticks
-		}
-        
-	}
+    	getScancode();
+    	timer();
 
+
+    }
 }

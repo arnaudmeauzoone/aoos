@@ -3,6 +3,7 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
+#include "keyboard.h"
 
 static inline void outb(short port, char val)
 {
