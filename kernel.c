@@ -15,6 +15,12 @@
     Written by Arnaud Meauzoone
 
 */
+#if !defined(__cplusplus)
+#include <stdbool.h> /* C doesn't have booleans by default. */
+#endif
+#include <stddef.h>
+#include <stdint.h>
+#include "keyboard.h"
 
 
 void kernel_Main();
@@ -66,15 +72,6 @@ void write_String(char* string){
       }
 }
 
-static inline void outb(short port, char val)
-{
-    asm volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
-    /* There's an outb %al, $imm8  encoding, for compile-time constant port numbers that fit in 8b.  (N constraint).
-     * Wider immediate constants would be truncated at assemble-time (e.g. "i" constraint).
-     * The  outb  %al, %dx  encoding is the only option for all other cases.
-     * %1 expands to %dx because  port  is a uint16_t.  %w1 could be used if we had the port number a wider C type */
-}
-
 void kernel_Main(){
 
 
@@ -83,6 +80,14 @@ void kernel_Main(){
 	
 	while(1){
 
+		getScancode();
+		asm volatile ( "nop" );
+		asm volatile ( "nop" );
+		asm volatile ( "nop" );
+		asm volatile ( "nop" );
+		asm volatile ( "nop" );
+		asm volatile ( "nop" );
+        
 	}
 
 }

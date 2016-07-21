@@ -13,7 +13,7 @@
 ;
 ;    Written by Arnaud Meauzoone
 
-dt:
+gdt:
 
     cli                    ;disable interupt to enter in protected mode
     lgdt[gdt_descriptor]   ;load the global descriptor table
