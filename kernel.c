@@ -72,21 +72,44 @@ void write_String(char* string){
       }
 }
 
+void write_Integer(uint8_t* num){
+
+      for(int i=0; i<sizeof(num); i++){
+      *p_video_mem = num[i] +48;				    //
+	  *(p_video_mem +1) = COLOR_BLUE;			//
+	  p_video_mem = p_video_mem + 2;	
+	  }											//
+}
+
+static inline uint64_t rdtsc()
+	{
+    uint64_t ret;
+    asm volatile ( "rdtsc" : "=A"(ret) );
+    return ret;
+	}
+
+
+
 void kernel_Main(){
 
 
      //update_cursor(2,2);
      write_String("kernel in c has started :)))");
+
+    uint64_t time_begin =rdtsc();
+    uint64_t time_current =rdtsc();
+    uint8_t i=0;
 	
 	while(1){
 
-		getScancode();
-		asm volatile ( "nop" );
-		asm volatile ( "nop" );
-		asm volatile ( "nop" );
-		asm volatile ( "nop" );
-		asm volatile ( "nop" );
-		asm volatile ( "nop" );
+		//getScancode();
+		time_current = rdtsc();
+		if(time_current - time_begin > 2564000000){
+			write_Integer(i);
+			i++;
+			time_begin = time_current;
+			// 1 nanosecond = 2564 ticks
+		}
         
 	}
 
