@@ -30,8 +30,8 @@
 
     jmp CODE_SEG:b32
 
-    %include"gdt.asm"
-    %include"diskload.asm"
+    %include"assembly/gdt.asm"
+    %include"assembly/diskload.asm"
 
 [bits 32]
 
