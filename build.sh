@@ -5,5 +5,6 @@ cat assembly/bootloader.img kernel.img > yaoos/yaoos.img
 truncate yaoos/yaoos.img -s 5120
 
 rm *.o
-rm *.img
+rm *.img 
+rm assembly/bootloader.img
 
