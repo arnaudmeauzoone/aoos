@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include "keyboard.h"
 #include "kernel.h"
-
+#include "console.h"
 
 static inline void outb(short port, char val)
 {
@@ -30,15 +30,15 @@ PS/2 keyboard code.
 Dependencies:
 inb function and scancode table.
 */
-char getScancode()
+uint8_t getScancode()
 {
-	uint8_t c=0;
-		if(inb(0x60)!=c)
+	uint8_t c;
+		if(inb(0x60)!= c)
 			{
 			c=inb(0x60);
-				  if(c>0){
-				  write_String(c);
-				  outb(0x60,0);
+				  if(c == 0x12){
+				  write_Nbr(c);
+				  outb(0x60,0x00);			  
 			      }
 			}
 	return c;

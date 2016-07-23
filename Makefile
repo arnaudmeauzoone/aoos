@@ -10,8 +10,8 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 NC=\033[0m
 
-yaoos: linker/linker.ld kernel.o keyboard.o timer.o assembly/bootloader.img
-	@$(LINKER) $(LFLAGS) kernel.o timer.o keyboard.o
+yaoos: linker/linker.ld kernel.o keyboard.o timer.o console.o assembly/bootloader.img 
+	@$(LINKER) $(LFLAGS) kernel.o timer.o keyboard.o console.o
 	@printf "[$(GREEN)OK$(NC)] kernel.img\n"
 
  
@@ -38,6 +38,10 @@ keyboard.o: c/keyboard.c
 assembly/bootloader.img: assembly/bootloader.asm
 	@nasm assembly/bootloader.asm -f bin -o assembly/bootloader.img
 	@printf "[$(GREEN)OK$(NC)] bootloader.img.o\n"
+
+console.o: c/console.c
+	@$(CC) $(CFLAGS) c/console.c
+	@printf "[$(GREEN)OK$(NC)] console.o\n"
 
 
 clean: 

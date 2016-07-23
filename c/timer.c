@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "timer.h"
+#include "console.h"
 
 static inline uint64_t rdtsc()
 {
