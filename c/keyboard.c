@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "keyboard.h"
+#include "kernel.h"
+
 
 static inline void outb(short port, char val)
 {
@@ -30,7 +32,7 @@ inb function and scancode table.
 */
 char getScancode()
 {
-	char c=0;
+	uint8_t c=0;
 		if(inb(0x60)!=c)
 			{
 			c=inb(0x60);

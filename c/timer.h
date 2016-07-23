@@ -9,5 +9,6 @@
     void timer();
     int64_t getMicro();
     int64_t getNano();
+    void setup_timer();
 
 #endif

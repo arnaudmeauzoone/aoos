@@ -20,18 +20,21 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
+#include "kernel.h"    
 #include "keyboard.h"
 #include "timer.h"
 
 
 void kernel_Main();
 
-char  *p_video_mem = (char*) 0xb8000; 	//this is the base video memory adress 
+void entry(){	
+
+	p_video_mem = (char*) 0xb8000; 		//this is the base video memory adress 
 										//for text-ui graphical card
 										//Simply write something at this adress
 										//and it will be printed :)
 
-void entry(){							//This is the static entry point 
+										//This is the static entry point 
 										//It is needed for the assembly
 	kernel_Main();						//because kernel_main adress can change but
 										//not entry adress
