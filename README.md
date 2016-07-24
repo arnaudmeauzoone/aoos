@@ -14,9 +14,11 @@
  
  This is the main site for those who want to create and/or enderstand how os works. I have literally spends nights and days reading articles from this web site. My main gool was to enderstand how operating system works 
  
+ This guys from youtube also is really interesting he explain really well low level devellopment 
  https://www.youtube.com/watch?v=YvZhgRO7hL4
  
- This guys from youtube also is really interesting he explain really well low level devellopment 
+ Also this one really good. He explains some stuff that are not usualy explained when you read blogs
+ https://www.youtube.com/playlist?list=PLlpEm4MNagkzqz6kDfr06GzcAiNOGfZU9
  
  Also a lot of time in stack overflow some guys are also really interesting there
  For exemple 
