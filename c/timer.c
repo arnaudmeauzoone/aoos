@@ -3,41 +3,37 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
+#include "keyboard.h"
 #include "timer.h"
 #include "console.h"
+#include "isr.h"
 
-static inline uint64_t rdtsc()
+static uint32_t tick = 0;
+
+//IRQ rountine for irq0
+static void timer_tick() 
 {
-    uint64_t ret;
-    asm volatile ( "rdtsc" : "=A"(ret) );
-    return ret;
+    tick++;
 }
 
-int64_t getNano(){
-
-  return nbrNano;
-
+//Returns tick count
+uint32_t timer_gettick()
+{
+    return tick;
 }
 
-int64_t getMicro(){
+//Initialize timer with given frequency
+void InitializeTimer(uint32_t freq) {
 
-return ((float)nbrNano/(1000));
+    register_interupt_handler(IRQ0, &timer_tick);
 
-}    
-void setup_timer() {
+    uint32_t delitel = 1193180 / freq;
 
-    time_begin =rdtsc();
-    time_current =rdtsc();
-    nbrNano =0;
-}
+    outb(0x43, 0x36);
 
+    uint8_t l = (uint8_t) (delitel & 0xFF);
+    uint8_t h = (uint8_t) ((delitel >> 8) & 0xFF);
 
-void timer(){
-        
-		time_current = rdtsc();
-		if(time_current - time_begin >= 2564){
-			nbrNano++;
-			time_begin = time_current;
-			// 1 nanosecond = 2564 ticks
-}
+    outb(0x40, l);
+    outb(0x40, h);
 }

@@ -26,7 +26,7 @@ diskload:                   ;This function will load the 9 first blocks of data 
 
     mov AH, 0x02            ;this function is to read from the drive 
     mov AL, 0x09			;this means wee want to read 9 sectors
-    mov DL, 0x00			;Here wee choose the drive 0x00 for floppy disk and 0x80 for hard drive :)
+    ;mov DL, 0x00			;Here wee choose the drive 0x00 for floppy disk and 0x80 for hard drive :)
     mov CH, 0x00			;here wee choose the cylinder
     mov DH, 0x00			;here wee choose the head
     mov CL, 0x02			;and here it is the sector

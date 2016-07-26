@@ -35,6 +35,7 @@
 
 [bits 32]
 
+
 b32:
     mov ax, DATA_SEG
     mov ds, ax
