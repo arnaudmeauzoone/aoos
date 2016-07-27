@@ -24,6 +24,8 @@
 #include "keyboard.h"
 #include "timer.h"
 #include "console.h"
+#include "test.h"
+
 
 void entry(){	
 
@@ -38,29 +40,12 @@ void kernel_Main(){
 
      //kernel_setup();
 
-     setup_timer();
+     //setup_timer();
 
      console_setup();
 
      //update_cursor(2,2);
      write_String("kernel in c has started :)))");
-
-
-
-     int64_t currentNano = 0;
-
-    while(1){
-
-    	timer();
-
-    	if(getNano() - currentNano > 0 ){
-
-           currentNano = getNano();
-           
-
-    	getScancode();
-    	//kernel_run();
-
-    	}
-    }
+    
+     test();
 }

@@ -10,8 +10,8 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 NC=\033[0m
 
-yaoos: linker/linker.ld kernel.o keyboard.o timer.o console.o assembly/bootloader.img 
-	@$(LINKER) $(LFLAGS) kernel.o timer.o keyboard.o console.o
+yaoos: linker/linker.ld kernel.o keyboard.o timer.o console.o assembly/bootloader.img test.o idt.a.o interupt.a.o
+	@$(LINKER) $(LFLAGS) kernel.o timer.o keyboard.o console.o test.o idt.a.o interupt.a.o
 	@printf "[$(GREEN)OK$(NC)] kernel.img\n"
 
  
@@ -43,6 +43,19 @@ console.o: c/console.c
 	@$(CC) $(CFLAGS) c/console.c
 	@printf "[$(GREEN)OK$(NC)] console.o\n"
 
+test.o: c/test.c
+	@$(CC) $(CFLAGS) c/test.c
+	@printf "[$(GREEN)OK$(NC)] test.o\n"
+
+idt.a.o: assembly/idt.asm
+	@nasm assembly/idt.asm -f elf -o idt.a.o
+	@printf "[$(GREEN)OK$(NC)] idt.a.o\n"
+
+interupt.a.o: assembly/interupt.asm
+	@nasm assembly/interupt.asm -f elf -o interupt.a.o
+	@printf "[$(GREEN)OK$(NC)] interupt.img.o\n"
+
+
 
 clean: 
 	@rm -f *.o
@@ -57,3 +70,5 @@ mrproper:
 	@rm -f assembly/bootloader.img
 	@rm -f yaoos/yaoos.img
 	@printf "[$(GREEN)OK$(NC)] erased everything but code\n"
+
+rebuild: mrproper yaoos

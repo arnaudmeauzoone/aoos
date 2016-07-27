@@ -33,7 +33,7 @@ p_video_mem = (char*) 0xb8000; 		    //this is the base video memory adress
     	}
 	}
 
-
+p_video_mem = (char*) (0xb8000 +80*2 + 2);
 }
 
 
