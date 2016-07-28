@@ -30,8 +30,8 @@
 
     jmp CODE_SEG:b32
 
-    %include"assembly/gdt.asm"
-    %include"assembly/diskload.asm"
+    %include"assembly/bootloader/gdt.asm"
+    %include"assembly/bootloader/diskload.asm"
 
 [bits 32]
 
@@ -43,7 +43,7 @@ b32:
     mov gs, ax
     mov ss, ax
 
-    jmp kernel_entry
+    jmp 0x7e00
 
 
     TIMES 510 - ($ - $$) db 0   ;Fill the rest of sector with 0
