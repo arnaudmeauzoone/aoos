@@ -45,6 +45,15 @@ void InitializeIDT(void)
 
     memset(&idt_entries, 0, sizeof(idt_entry_t) * 256);
 
+    //0x8E for the flags = 1000 1110b
+    //This is the table:
+    //P = 1 for used interupt
+    //DPL = 00 to specifies which privilege Level the 
+    //calling Descriptor minimum should have.
+    //S = 0 for interupt gate
+    //TYPE = 1110b for 32-bit interupt gates
+    // in fact 01110b with the S (see before)
+
     idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
     idt_set_gate(1, (uint32_t)isr1, 0x08, 0x8E);
     idt_set_gate(2, (uint32_t)isr2, 0x08, 0x8E);
@@ -78,16 +87,16 @@ void InitializeIDT(void)
     idt_set_gate(30, (uint32_t)isr30, 0x08, 0x8E);
     idt_set_gate(31, (uint32_t)isr31, 0x08, 0x8E);
 
-    outb(0x20, 0x11);
-    outb(0xA0, 0x11);
-    outb(0x21, 0x20);
-    outb(0xA1, 0x28);
-    outb(0x21, 0x04);
-    outb(0xA1, 0x02);
-    outb(0x21, 0x01);
-    outb(0xA1, 0x01);
-    outb(0x21, 0x0);
-    outb(0xA1, 0x0);
+    outb(PIC1_COMMAND, 0x11);
+    outb(PIC2_COMMAND, 0x11);
+    outb(PIC1_DATA, 0x20);
+    outb(PIC2_DATA, 0x28);
+    outb(PIC1_DATA, 0x04);
+    outb(PIC2_DATA, 0x02);
+    outb(PIC1_DATA, 0x01);
+    outb(PIC2_DATA, 0x01);
+    outb(PIC1_DATA, 0x0);
+    outb(PIC2_DATA, 0x0);
     
     asm volatile("sti");
 
