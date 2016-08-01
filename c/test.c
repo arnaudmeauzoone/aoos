@@ -49,7 +49,7 @@ void irq_handler(struct registers_t regs)
 
 void timer_test() 
 {
-         //write_String("this is the timer function1");
+         write_String("this is the timer function1");
 
 }
 

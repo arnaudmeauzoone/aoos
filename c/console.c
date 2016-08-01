@@ -8,7 +8,7 @@
 
 void console_setup(){
 
-p_video_mem = (char*) 0xb8000; 		    //this is the base video memory adress 
+p_video_mem = (uint8_t*) 0xb8000; 		    //this is the base video memory adress 
 										//for text-ui graphical card
 										//Simply write something at this adress
 										//and it will be printed :)
@@ -16,24 +16,19 @@ p_video_mem = (char*) 0xb8000; 		    //this is the base video memory adress
 		for(column = 0; column < 80; column++ ){
 		
 
-			if(line > 0 && line < 24 && column > 0 && column < 79){
-
-			p_video_mem = p_video_mem + 2;			//Increment by two to write next caracter
-
-
-      
-    		}
-    		else{
-
-	    *(p_video_mem +1) = COLOR_LIGHT_BLUE << 4 | COLOR_WHITE;			//
-	    p_video_mem = p_video_mem + 2;			//Increment by two to write next caracter
-		
-		//write_String(line);
-	    	}
-    	}
+            *(p_video_mem +1)=inCadre(line,column)?B_COLOR_LIGHT_BLUE:B_COLOR_BLACK;
+        	p_video_mem = p_video_mem + 2;			//Increment by two to write next caracter
+   		}
+			
 	}
 
 p_video_mem = (char*) (0xb8000 +80*2 + 2);
+}
+
+bool inCadre(int line, int column){
+
+return (line == 0 || line == 24 || column == 0 || column == 79)?true:false;
+
 }
 
 

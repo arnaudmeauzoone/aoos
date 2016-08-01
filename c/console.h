@@ -1,14 +1,10 @@
 #ifndef console_h
 #define console_h
 
-char  *p_video_mem;		
+uint8_t  *p_video_mem;		
 
 int line;
-int column;			 	
-
-void write_String(char* string);
-void write_Nbr(uint8_t num);
-void console_setup();
+int column;			 
 
 enum vga_color {						//To enderstand your code
 	COLOR_BLACK = 0,
@@ -27,8 +23,14 @@ enum vga_color {						//To enderstand your code
 	COLOR_LIGHT_MAGENTA = 13,
 	COLOR_LIGHT_BROWN = 14,
 	COLOR_WHITE = 15,
-};
 
+	B_COLOR_BLACK = COLOR_BLACK << 4,
+	B_COLOR_LIGHT_BLUE = COLOR_LIGHT_BLUE << 4,
+};	
 
+bool inCadre(int line, int column);
+void write_String(char* string);
+void write_Nbr(uint8_t num);
+void console_setup();
 
 #endif
