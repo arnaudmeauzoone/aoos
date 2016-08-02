@@ -29,8 +29,12 @@ enum vga_color {						//To enderstand your code
 };	
 
 bool inCadre(int line, int column);
-void write_String(char* string);
+void append_String(uint8_t* string);
 void write_Nbr(uint8_t num);
 void console_setup();
+void write(uint8_t letter,int x,int y, uint8_t color1, uint8_t color2);
+uint8_t write_console(uint8_t letter, int x, int y, uint8_t color1, uint8_t color2);
+void returnLine();
+void returnTop();
 
 #endif

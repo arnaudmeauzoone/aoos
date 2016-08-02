@@ -45,7 +45,7 @@ void kernel_Main(){
      console_setup();
 
      //update_cursor(2,2);
-     write_String("kernel in c has started :)))");
+     append_String("kernel in c has started :)))");
     
      test();
 }
