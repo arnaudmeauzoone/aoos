@@ -3,26 +3,19 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
-#include "kernel.h"    
-#include "keyboard.h"
-#include "timer.h"
-#include "console.h"
 #include "test.h"
+#include "console.h"
 #include "idt.h"
+#include "keyboard.h"
+#include "kernel.h"
 
-#define IRQ0 32
+void test(){
 
-struct registers_t
-{
-	uint32_t ds;
-	uint32_t edi, esi, edp, esp, ebx, edx, ecx, eax;
-	uint32_t int_no, err_code;
-	uint32_t eip, cs, eflags, useresp, ss;
-};
+     InitializeIDT();
+     InitializeTimer(5000000);
 
-typedef void (*isr_t)(registers_t);
-
-isr_t interrupt_handlers[256];
+     append_String("this is the test function");
+}
 
 void isr_handler(struct registers_t regs)
 {
@@ -47,7 +40,7 @@ void irq_handler(struct registers_t regs)
 	}
 }
 
-void timer_test() 
+void timer_test()
 {
          append_String("this is the timer function1");
          returnLine();
@@ -61,8 +54,10 @@ void register_interupt_handler(uint8_t n, isr_t handler)
 
 void InitializeTimer(uint32_t freq) {
 
+    //Here we register the timer into the empty idt
     register_interupt_handler(IRQ0, &timer_test);
 
+    //Then we will initialize the timer to trigger interupts
     uint32_t delitel = 1193180 / freq;
 
     outb(0x43, 0x36);
@@ -72,14 +67,4 @@ void InitializeTimer(uint32_t freq) {
 
     outb(0x40, l);
     outb(0x40, h);
-}
-
-void test(){
-
-     InitializeIDT(); 
-     InitializeTimer(5000000);
-
-     append_String("this is the test function");
-
-	
 }

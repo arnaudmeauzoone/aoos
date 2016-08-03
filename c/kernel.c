@@ -20,21 +20,26 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
-#include "kernel.h"    
-#include "keyboard.h"
-#include "timer.h"
+#include "test.h"
+#include "kernel.h"
 #include "console.h"
 #include "test.h"
+#include "idt.h"
+#include "keyboard.h"
 
 
-void entry(){	
 
-										//This is the static entry point 
+
+
+
+void entry(){
+
+										//This is the static entry point
 										//It is needed for the assembly
 	kernel_Main();						//because kernel_main adress can change but
 										//not entry adress
 }
-										//Declare those value so it will be easier 
+										//Declare those value so it will be easier
 
 void kernel_Main(){
 
@@ -46,6 +51,6 @@ void kernel_Main(){
 
      //update_cursor(2,2);
      append_String("kernel in c has started :)))");
-    
+
      test();
 }

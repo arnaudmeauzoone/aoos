@@ -33,13 +33,12 @@ inb function and scancode table.
 uint8_t getScancode()
 {
 	uint8_t c;
-		if(inb(0x60)!= c)
-			{
-			c=inb(0x60);
-				  if(c == 0x12){
-				  write_Nbr(c);
-				  outb(0x60,0x00);			  
-			      }
-			}
+
+  if(inb(0x60)== c)return NULL;
+  c=inb(0x60);
+	if(c != 0x12)return NULL;
+  write_Nbr(c);
+  outb(0x60,0x00);
 	return c;
+
 }

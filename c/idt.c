@@ -3,12 +3,11 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
-#include "kernel.h"    
-#include "keyboard.h"
-#include "timer.h"
-#include "console.h"
-#include "test.h"
 #include "idt.h"
+#include "test.h"
+#include "console.h"
+#include "keyboard.h"
+#include "kernel.h"
 
 typedef struct idt_entry_s idt_entry_t;
 typedef struct idt_ptr_s   idt_ptr_t;
@@ -38,7 +37,7 @@ void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags)
     idt_entries[num].flags   = flags;
 }
 
-void InitializeIDT(void) 
+void InitializeIDT(void)
 {
     idtp.limit = sizeof(idt_entry_t) * 256 - 1;
     idtp.base  = (uint32_t)&idt_entries;
@@ -48,11 +47,14 @@ void InitializeIDT(void)
     //0x8E for the flags = 1000 1110b
     //This is the table:
     //P = 1 for used interupt
-    //DPL = 00 to specifies which privilege Level the 
+    //DPL = 00 to specifies which privilege Level the
     //calling Descriptor minimum should have.
     //S = 0 for interupt gate
     //TYPE = 1110b for 32-bit interupt gates
     // in fact 01110b with the S (see before)
+
+    //First we initialize an empty idt
+    //Then we will populate it during the initialization
 
     idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
     idt_set_gate(1, (uint32_t)isr1, 0x08, 0x8E);
@@ -97,7 +99,7 @@ void InitializeIDT(void)
     outb(PIC2_DATA, 0x01);
     outb(PIC1_DATA, 0x0);
     outb(PIC2_DATA, 0x0);
-    
+
     asm volatile("sti");
 
     idt_set_gate(32, (uint32_t)irq0, 0x08, 0x8E);
