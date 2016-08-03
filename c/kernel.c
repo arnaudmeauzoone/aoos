@@ -53,4 +53,6 @@ void kernel_Main(){
      append_String("kernel in c has started :)))");
 
      test();
+
+		 InitializeKeyboard();
 }

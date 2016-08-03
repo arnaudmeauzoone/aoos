@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "keyboard.h"
+#include "test.h"
 #include "kernel.h"
 #include "console.h"
 
@@ -41,4 +42,17 @@ uint8_t getScancode()
   outb(0x60,0x00);
 	return c;
 
+}
+
+void keyborad_interupt(){
+
+  myKeyb -> isPressed = true;
+  myKeyb -> keyPressed = getScancode();
+
+}
+
+void InitializeKeyboard() {
+
+    //Here we register the keyborad into the empty idt
+    register_interupt_handler(IRQ1, &keyborad_interupt);
 }

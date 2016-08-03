@@ -44,6 +44,9 @@ void InitializeIDT(void)
 
     memset(&idt_entries, 0, sizeof(idt_entry_t) * 256);
 
+    //First we initialize an empty idt
+    //Then we will populate it during the initialization
+
     //0x8E for the flags = 1000 1110b
     //This is the table:
     //P = 1 for used interupt
@@ -52,9 +55,6 @@ void InitializeIDT(void)
     //S = 0 for interupt gate
     //TYPE = 1110b for 32-bit interupt gates
     // in fact 01110b with the S (see before)
-
-    //First we initialize an empty idt
-    //Then we will populate it during the initialization
 
     idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
     idt_set_gate(1, (uint32_t)isr1, 0x08, 0x8E);

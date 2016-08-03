@@ -42,8 +42,11 @@ void irq_handler(struct registers_t regs)
 
 void timer_test()
 {
-         append_String("this is the timer function1");
-         returnLine();
+         //append_String("this is the timer function1");
+         //returnLine();
+				 (myKeyb -> isPressed)?
+				 (append_String(myKeyb -> keyPressed),myKeyb -> isPressed = false)
+				 :NULL;
 
 }
 

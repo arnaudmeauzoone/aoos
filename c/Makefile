@@ -26,21 +26,21 @@ all:$(OBJ)
 
 #We just say take all .c files and create .o file with the same name
 %.o: %.c
-	@$(CC) $(CFLAGS) $< 
+	@$(CC) $(CFLAGS) $<
 	@printf "[$(GREEN)OK$(NC)] $@\n"
 
-clean: 
+clean:
 	@rm -f *.o
-	@rm -f *.img 
+	@rm -f *.img
 	@rm -f assembly/bootloader.img
 	@printf "[$(GREEN)OK$(NC)] cleaned\n"
 
 
-mrproper: 
+mrproper:
 	@rm -f *.o
-	@rm -f *.img 
+	@rm -f *.img
 	@rm -f assembly/bootloader.img
 	@rm -f yaoos/yaoos.img
 	@printf "[$(GREEN)OK$(NC)] erased everything but code\n"
 
-rebuild: mrproper all	
+rebuild: mrproper all
