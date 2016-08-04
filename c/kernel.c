@@ -28,11 +28,6 @@
 #include "keyboard.h"
 #include "timer.h"
 
-
-
-
-
-
 void entry(){
 
 										//This is the static entry point
