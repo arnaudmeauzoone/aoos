@@ -16,5 +16,6 @@ uint8_t inb(uint16_t port);
 uint8_t getScancode();
 void keyborad_interupt();
 void InitializeKeyboard();
+void update_cursor(int row, int col);
 
 #endif

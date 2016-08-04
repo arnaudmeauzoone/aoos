@@ -24,6 +24,7 @@ p_video_mem = (uint8_t*) 0xb8000; 		    //this is the base video memory adress
 	}
 line = 0;
 column = 0;
+update_cursor(5,5);
 }
 
 bool inCadre(int line, int column){
@@ -48,9 +49,11 @@ void append_String(uint8_t* string){
       (line == 25)?returnTop():NULL;
       //That is to stay inside the console
 
-      !inCadre(line,column)?
-      (write(string[i],column, line, COLOR_BLACK, COLOR_BROWN),i++):NULL;
-
+      	if(!inCadre(line,column)){
+      		write(string[i],column, line, COLOR_BLACK, COLOR_BROWN);
+					update_cursor(line,column);
+				 	i++;
+		    }
       }
 }
 
@@ -93,11 +96,24 @@ void returnLine(){
 
 line++;
 column = 0;
-
+update_cursor(line,column);
 }
 
 void returnTop(){
 
 	line = 0;
 	column = 0;
+	update_cursor(line,column);
+}
+
+void update_cursor(int row, int col)
+{
+	 uint16_t position=(row*80) + col;
+
+	 // cursor LOW port to vga INDEX register
+	 outb(0x3D4, 0x0F);
+	 outb(0x3D5, (uint32_t)(position&0xFF));
+	 // cursor HIGH port to vga INDEX register
+	 outb(0x3D4, 0x0E);
+	 outb(0x3D5, (uint32_t)((position>>8)&0xFF));
 }
