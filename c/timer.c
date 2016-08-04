@@ -4,40 +4,29 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "timer.h"
-#include "console.h"
+#include "test.h"
+#include "keyboard.h"
 
-static inline uint64_t rdtsc()
+void timer_callBack()
 {
-    uint64_t ret;
-    asm volatile ( "rdtsc" : "=A"(ret) );
-    return ret;
+				 (myKeyb -> isPressed)?
+				 (append_String(myKeyb -> keyPressed),myKeyb -> isPressed = false)
+				 :NULL;
 }
 
-int64_t getNano(){
+void InitializeTimer(uint32_t freq) {
 
-  return nbrNano;
+    //Here we register the timer into the empty idt
+    register_interupt_handler(IRQ0, &timer_callBack);
 
-}
+    //Then we will initialize the timer to trigger interupts
+    uint32_t delitel = 1193180 / freq;
 
-int64_t getMicro(){
+    outb(0x43, 0x36);
 
-return ((float)nbrNano/(1000));
+    uint8_t l = (uint8_t) (delitel & 0xFF);
+    uint8_t h = (uint8_t) ((delitel >> 8) & 0xFF);
 
-}    
-void setup_timer() {
-
-    time_begin =rdtsc();
-    time_current =rdtsc();
-    nbrNano =0;
-}
-
-
-void timer(){
-        
-		time_current = rdtsc();
-		if(time_current - time_begin >= 2564){
-			nbrNano++;
-			time_begin = time_current;
-			// 1 nanosecond = 2564 ticks
-}
+    outb(0x40, l);
+    outb(0x40, h);
 }

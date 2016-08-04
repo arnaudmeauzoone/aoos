@@ -26,6 +26,7 @@
 #include "test.h"
 #include "idt.h"
 #include "keyboard.h"
+#include "timer.h"
 
 
 
@@ -43,16 +44,21 @@ void entry(){
 
 void kernel_Main(){
 
-     //kernel_setup();
-
-     //setup_timer();
-
      console_setup();
-
-     //update_cursor(2,2);
-     append_String("kernel in c has started :)))");
-
-     test();
+		 append_String("Console setup");
+		 returnLine();
 
 		 InitializeKeyboard();
+		 append_String("keyboard initialized");
+		 returnLine();
+
+		 InitializeIDT();
+		 append_String("IDT initialized");
+		 returnLine();
+
+		 InitializeTimer(5000000);
+		 append_String("Timmer initialized");
+		 returnLine();
+
+		 append_String("kernel in c is fully started :)))");
 }
