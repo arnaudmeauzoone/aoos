@@ -9,9 +9,16 @@
 
 void timer_callBack()
 {
-				 (myKeyb -> isPressed)?
-				 (append_String(myKeyb -> keyPressed),myKeyb -> isPressed = false)
+				 //(myKeyb -> isPressed)?
+				 //(append_String(myKeyb -> keyPressed),myKeyb -> isPressed = false)
+				 //:NULL;
+
+         (myKeyb -> isPressed)?
+				 (myKeyb -> isPressed = false,program -> clear_con = true)
 				 :NULL;
+
+         (program -> clear_con)?
+         (clear_console(),program -> clear_con =false):NULL;
 }
 
 void InitializeTimer(uint32_t freq) {

@@ -35,7 +35,7 @@ void entry(){
 	kernel_Main();						//because kernel_main adress can change but
 										//not entry adress
 }
-										//Declare those value so it will be easier
+
 
 void kernel_Main(){
 
@@ -54,6 +54,8 @@ void kernel_Main(){
 		 InitializeTimer(5000000);
 		 append_String("Timmer initialized");
 		 returnLine();
+
+		 program -> clear_con = false;
 
 		 append_String("kernel in c is fully started :)))");
 }

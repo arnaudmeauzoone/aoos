@@ -17,5 +17,6 @@ uint8_t getScancode();
 void keyborad_interupt();
 void InitializeKeyboard();
 void update_cursor(int row, int col);
+void clear_console();
 
 #endif

@@ -117,3 +117,24 @@ void update_cursor(int row, int col)
 	 outb(0x3D4, 0x0E);
 	 outb(0x3D5, (uint32_t)((position>>8)&0xFF));
 }
+
+void clear_console(){
+
+	returnTop();
+
+	for(int i=0; i <= 80*25;){
+
+	column++;
+	(column == 79)?returnLine():NULL;
+	(line == 25)?returnTop():NULL;
+	//That is to stay inside the console
+
+		if(!inCadre(line,column)){
+			write(NULL,column, line, COLOR_BLACK, COLOR_WHITE);
+			update_cursor(line,column);
+			i++;
+		}
+	}
+	returnTop();
+
+}
