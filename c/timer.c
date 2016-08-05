@@ -6,19 +6,20 @@
 #include "timer.h"
 #include "test.h"
 #include "keyboard.h"
+#include "program.h"
+
+#define IRQ0 32
 
 void timer_callBack()
-{
-				 //(myKeyb -> isPressed)?
-				 //(append_String(myKeyb -> keyPressed),myKeyb -> isPressed = false)
-				 //:NULL;
+{        //This is the program that will set the flags
+         //of the others programs
+				 (programs -> choosePro)?chooseProgram():NULL;
 
-         (myKeyb -> isPressed)?
-				 (myKeyb -> isPressed = false,program -> clear_con = true)
-				 :NULL;
+         //If the flag of one program has been set to true
+         //we lunch the program and the the flag back to false
 
-         (program -> clear_con)?
-         (clear_console(),program -> clear_con =false):NULL;
+         (programs -> clear_con)?
+         (programs -> clear_con = false, clear_console()):NULL;
 }
 
 void InitializeTimer(uint32_t freq) {

@@ -38,7 +38,6 @@ uint8_t getScancode()
   if(inb(0x60)== c)return NULL;
   c=inb(0x60);
 	if(c != 0x12)return NULL;
-  write_Nbr(c);
   outb(0x60,0x00);
 	return c;
 
@@ -53,7 +52,7 @@ void keyborad_interupt(){
 
 void InitializeKeyboard() {
 
-    //Initial the keyboard to not have strange behavior 
+    //Initial the keyboard to not have strange behavior
     myKeyb -> isPressed = false;
     //Here we register the keyborad into the empty idt
     register_interupt_handler(IRQ1, &keyborad_interupt);

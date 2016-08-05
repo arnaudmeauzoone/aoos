@@ -27,6 +27,7 @@
 #include "idt.h"
 #include "keyboard.h"
 #include "timer.h"
+#include "program.h"
 
 void entry(){
 
@@ -55,7 +56,11 @@ void kernel_Main(){
 		 append_String("Timmer initialized");
 		 returnLine();
 
-		 program -> clear_con = false;
+		 initializeProgram();
+		 append_String("Programs initialized");
+		 returnLine();
 
 		 append_String("kernel in c is fully started :)))");
+
+		 programs -> clear_con = false;
 }

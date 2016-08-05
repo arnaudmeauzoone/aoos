@@ -1,8 +1,6 @@
 #ifndef console_h
 #define console_h
 
-#define IRQ0 32
-
 struct registers_t
 {
 	uint32_t ds;
