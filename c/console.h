@@ -1,10 +1,28 @@
+/*
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Written by Arnaud Meauzoone
+
+*/
+
 #ifndef console_h
 #define console_h
 
-uint8_t  *p_video_mem;		
+uint8_t  *p_video_mem;
 
 int line;
-int column;			 
+int column;
 
 enum vga_color {						//To enderstand your code
 	COLOR_BLACK = 0,
@@ -26,7 +44,7 @@ enum vga_color {						//To enderstand your code
 
 	B_COLOR_BLACK = COLOR_BLACK << 4,
 	B_COLOR_LIGHT_BLUE = COLOR_LIGHT_BLUE << 4,
-};	
+};
 
 bool inCadre(int line, int column);
 void append_String(uint8_t* string);

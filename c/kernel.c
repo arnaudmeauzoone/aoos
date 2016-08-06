@@ -62,5 +62,15 @@ void kernel_Main(){
 
 		 append_String("kernel in c is fully started :)))");
 
+		 returnLine();
+		 returnLine();
+		 returnLine();
+
+		 append_String("Press enter to have access to the programs");
+
+		 returnLine();
+
+		 append_String("Written by Arnaud Meauzoone");
+
 		 programs -> clear_con = false;
 }

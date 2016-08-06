@@ -13,7 +13,7 @@
 
 #     Written by Arnaud Meauzoone
 
-LINKER = ld 
+LINKER = ld
 
 LFLAGS = -o kernel.img -T linker/linker.ld -m elf_i386 --oformat binary  -e 0x7c00
 
@@ -22,13 +22,15 @@ GREEN=\033[0;32m
 NC=\033[0m
 
 SRC_C= $(wildcard c/*.c)
+SRC_C2= $(wildcard c/programs/*.c)
 SRC_AS= $(wildcard assembly/*.asm)
 
 
 OBJ_C= $(filter-out c/kernel.o , $(SRC_C:.c=.o))
+OBJ_C2= $(SRC_C2:.c=.o)
 
-#OK so why do we exclude kernel.o ? Because this one is the critical one it contains the 
-#entry point of the C code. And so it will be called by the bootloader code witch expect it to 
+#OK so why do we exclude kernel.o ? Because this one is the critical one it contains the
+#entry point of the C code. And so it will be called by the bootloader code witch expect it to
 #be at adress 0x7e00. In fact it expect the function entry() to be at this adress.
 
 #If we don't do so it will be compiled like any C file and later be place somewhere by the linker
@@ -40,17 +42,17 @@ OBJ_AS= $(SRC_AS:.asm=.a.o)
 all:sub_make yaoos
 
 yaoos: linker/linker.ld assembly/bootloader/bootloader.img idt.a.o interupt.a.o
-	@$(LINKER) $(LFLAGS) c/kernel.o $(OBJ_C) $(OBJ_AS)
+	@$(LINKER) $(LFLAGS) c/kernel.o $(OBJ_C) $(OBJ_C2) $(OBJ_AS)
 
     #This is what I explaine before. We simply tell the linker that "Ok compile all .o
     #files as you want and place them where you want BUT place kernel.o et the beginning"
 
 	@printf "[$(GREEN)OK$(NC)] kernel.img\n"
 
- 
+
 	@cat assembly/bootloader/bootloader.img kernel.img > yaoos/yaoos.img
 	@printf "[$(GREEN)OK$(NC)] yaoos.img before truncate\n"
-	
+
 	@truncate yaoos/yaoos.img -s 5120
 	@printf "[$(GREEN)OK$(NC)] yaoos.img\n"
 
@@ -61,19 +63,19 @@ assembly/bootloader/bootloader.img: assembly/bootloader/bootloader.asm
 
 #We just say take all .asm files and create .o file with the same name
 %.a.o: assembly/%.asm
-	@nasm $< -f elf -o assembly/$@ 
-	@printf "[$(GREEN)OK$(NC)] $@\n"	
+	@nasm $< -f elf -o assembly/$@
+	@printf "[$(GREEN)OK$(NC)] $@\n"
 
-clean: 
+clean:
 	@rm -f *.o
-	@rm -f *.img 
+	@rm -f *.img
 	@rm -f assembly/bootloader.img
 	@printf "[$(GREEN)OK$(NC)] cleaned\n"
 
 
-mrproper: 
+mrproper:
 	@rm -f *.o
-	@rm -f *.img 
+	@rm -f *.img
 	@rm -f assembly/bootloader.img
 	@rm -f yaoos/yaoos.img
 	@printf "[$(GREEN)OK$(NC)] erased everything but code\n"
@@ -81,6 +83,6 @@ mrproper:
 
 rebuild: mrproper all
 
-#that is to call the makefile in c/ directoy 
+#that is to call the makefile in c/ directoy
 sub_make:
 	$(MAKE) -C c/ all

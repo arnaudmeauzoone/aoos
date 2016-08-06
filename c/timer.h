@@ -1,6 +1,8 @@
 #ifndef timer_h
 #define timer_h
 
+bool timerEnabled;
+
 struct program {
 
 	bool clear_con;

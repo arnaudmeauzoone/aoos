@@ -37,8 +37,6 @@ uint8_t getScancode()
 
   if(inb(0x60)== c)return NULL;
   c=inb(0x60);
-	if(c != 0x12)return NULL;
-  outb(0x60,0x00);
 	return c;
 
 }

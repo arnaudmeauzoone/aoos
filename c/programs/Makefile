@@ -22,7 +22,7 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 NC=\033[0m
 
-all:sub_make $(OBJ)
+all:$(OBJ)
 
 #We just say take all .c files and create .o file with the same name
 %.o: %.c
@@ -44,6 +44,3 @@ mrproper:
 	@printf "[$(GREEN)OK$(NC)] erased everything but code\n"
 
 rebuild: mrproper all
-
-sub_make:
-		$(MAKE) -C programs/ all

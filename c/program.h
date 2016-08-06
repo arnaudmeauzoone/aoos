@@ -5,6 +5,7 @@ struct programs {
 
 	bool clear_con;
 	bool choosePro;
+	bool welcomePro;
 
 };
 

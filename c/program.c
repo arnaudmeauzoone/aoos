@@ -14,6 +14,8 @@ programs -> choosePro = true;
 
 programs -> clear_con = false;
 
+programs -> welcomePro = false;
+
 
 }
 
@@ -26,11 +28,8 @@ void chooseProgram(){
   switch (myKeyb -> keyPressed) {
 
     case 0x1c :
-    programs -> clear_con = true;
+    programs -> welcomePro = true;
     break;
-
-    default:
-    programs -> clear_con = false;
 
   }
 }

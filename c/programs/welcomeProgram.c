@@ -16,10 +16,22 @@
 
 */
 
-#ifndef kernel_h
-#define kernel_h
-
-void entry();
-void kernel_Main();
-
+#if !defined(__cplusplus)
+#include <stdbool.h> /* C doesn't have booleans by default. */
 #endif
+#include <stddef.h>
+#include <stdint.h>
+#include "welcomeProgram.h"
+#include "../timer.h"
+#include "../console.h"
+
+void welcomeProgram(){
+
+    timerEnabled = false;
+
+    append_String("this is the welcome program");
+    //printWelcome();
+    //controlerWelcome();
+
+    timerEnabled = true;
+}
